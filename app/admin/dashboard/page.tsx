@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 export default function AdminDashboard() {
   const router = useRouter()
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<{ id: string; name: string; role: "admin" } | null>(null)
   const [users, setUsers] = useState<User[]>([])
   const [claims, setClaims] = useState<Claim[]>([])
   const [stats, setStats] = useState<any>(null)
@@ -131,7 +131,7 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((u) => (
+                    {users.map((u: User) => (
                       <tr key={u.id} className="border-b border-border hover:bg-surface transition-colors">
                         <td className="py-3 px-4 text-foreground">{u.name}</td>
                         <td className="py-3 px-4 text-muted">{u.email}</td>
@@ -175,7 +175,7 @@ export default function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {claims.map((claim) => (
+                    {claims.map((claim: Claim) => (
                       <tr key={claim.id} className="border-b border-border hover:bg-surface transition-colors">
                         <td className="py-3 px-4 text-foreground font-mono text-sm">{claim.id}</td>
                         <td className="py-3 px-4 text-muted font-mono text-sm">{claim.donationId}</td>
