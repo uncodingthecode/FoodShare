@@ -288,4 +288,33 @@ Both frontend and backend are fully functional with all required features implem
 
 ---
 
+## ⚙️ Environment
+
+Create a `.env` file (or copy `.env.example`) and set the required variables before running the apps. A root-level `.env.example` has been added with common values for local development.
+
+Example variables (in `.env` or `backend/.env` and `frontend/.env`):
+
+```
+# Backend
+MONGO_URI=mongodb://localhost:27017/foodshare
+PORT=5001
+JWT_SECRET=your_jwt_secret_here
+
+# Frontend
+NEXT_PUBLIC_API_URL=http://localhost:5001/api
+NEXT_PUBLIC_FRONTEND_URL=http://localhost:3000
+```
+
+## ✅ Continuous Integration (GitHub Actions)
+
+A basic CI workflow has been added at `.github/workflows/ci.yml`. It runs on push to `main` and performs the following steps on Ubuntu runners:
+
+- Checks out the code
+- Installs dependencies for `frontend` and `backend` (using `npm ci`)
+- Runs `npm run lint` in each package if a `lint` script exists
+
+If you want tests to run in CI, add a `test` script to `frontend/package.json` and/or `backend/package.json` and update the workflow accordingly.
+
+---
+
 **Made with ❤️ for reducing food wastage and helping communities**

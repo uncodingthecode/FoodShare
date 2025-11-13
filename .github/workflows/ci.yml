@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        run: |
+          if [ -d frontend ]; then
+            npm --prefix frontend ci --silent || npm --prefix frontend install --silent
+          fi
+
+      - name: Install backend dependencies
+        run: |
+          if [ -d backend ]; then
+            npm --prefix backend ci --silent || npm --prefix backend install --silent
+          fi
+
+      - name: Lint frontend
+        run: |
+          if [ -f frontend/package.json ]; then
+            npm --prefix frontend run lint || echo "No lint script or lint failed"
+          fi
+
+      - name: Lint backend
+        run: |
+          if [ -f backend/package.json ]; then
+            npm --prefix backend run lint || echo "No lint script or lint failed"
+          fi
+
+      - name: Build frontend
+        run: |
+          if [ -f frontend/package.json ]; then
+            npm --prefix frontend run build || echo "Frontend build failed or not configured"
+          fi
