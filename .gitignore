@@ -22,7 +22,9 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files
+# Ignore all env files but keep `.env.example` in the repo
 .env*
+!.env.example
 
 # Editor and OS files
 .vscode/
